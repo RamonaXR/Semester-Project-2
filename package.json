@@ -1,6 +1,6 @@
 {
   "name": "biddershop",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "auction page for semester project 2",
   "type": "module",
   "main": "index.js",
