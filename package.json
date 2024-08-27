@@ -1,0 +1,11 @@
+{
+  "name": "biddershop",
+  "version": "0.0.1",
+  "description": "auction page for semester project 2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ramona Jensen",
+  "license": "ISC"
+}
