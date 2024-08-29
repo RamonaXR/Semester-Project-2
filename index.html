@@ -5,7 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./src/index.css" />
     <script type="module" src="./src/js/index.js"></script>
-    <title>Document</title>
+    <title>Biddershop</title>
   </head>
-  <body></body>
+  <body class="bg-grayLighter font-sans">
+    <header class="bg-primary text-white p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">BIDDERSHOP</h1>
+      <nav class="hidden md:flex space-x-4">
+        <button id="addListingButton" class="hover:underline">Add new listing</button>
+        <button id="profileButton" class="hover:underline">Profile</button>
+        <button id="loginButton" class="hover:underline">Log in</button>
+      </nav>
+    </header>
+    <main class="p-4 md:px-16 lg:px-32">
+      <section class="container bg-white p-6 mb-8 shadow-lg">
+        <img src="#" alt="Gavel Image" class="w-full h-48 object-cover mb-4" />
+        <h2 class="text-lg font-bold mb-4 text-dark">Welcome to BidderShop</h2>
+        <p class="mb-4 text-dark">Your go-to spot for winning big on the items you crave. Join the auction, place your bids, and score great deals in no time!</p>
+        <p class="mb-4 text-red font-bold">New users get 1000 credits when registering!</p>
+        <h3 class="text-lg font-bold mb-4 text-dark">Ready to bid?</h3>
+        <p class="mb-4 text-dark">
+          By signing up, you unlock access to a world of exclusive items, hot deals, and the thrill of the auction. Whether you're here to snag a rare gem or just enjoy the excitement, becoming a member means you're always in the front row. 
+        </p>
+        <button id="registerButton" class="bg-primary text-white px-4 py-2 rounded">Register</button>
+      </section>
+      <h3 class="text-lg font-bold mb-4 text-dark">CURRENT ITEMS OPEN FOR BIDS:</h3>
+      <section>
+        <div id="itemsGrid" class="grid gap-6 grid-cols-1 md:grid-cols-2">
+          <div id="loader" class="flex justify-center items-center h-40 col-span-full">
+            <div class="animate-spin ease-linear rounded-full border-8 border-t-8 border-t-primary border-r-grayLight border-b-red border-l-grayLighter h-16 w-16"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="bg-dark text-white p-4 mt-8">
+      <h2 class="text-xl text-red font-bold mb-4">BIDDERSHOP</h2>
+      <nav class="space-y-2">
+        <button id="contactButton" class="block">CONTACT</button>
+        <button id="footerRegisterButton" class="block">REGISTER</button>
+      </nav>
+    </footer>
+    <div id="modal" class="fixed inset-0 bg-dark92 flex items-center justify-center hidden">
+      <div class="bg-white p-6 rounded-lg w-11/12 max-w-md">
+        <div id="modalContent"></div>
+      </div>
+    </div>
+  </body>
 </html>
