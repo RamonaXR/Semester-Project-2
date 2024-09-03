@@ -7,7 +7,7 @@
     <script type="module" src="./src/js/index.js"></script>
     <title>Biddershop</title>
   </head>
-  <body class="bg-grayLighter font-sans">
+  <body class="bg-grayLighter font-sans m-0">
     <header class="bg-primary text-white p-4 flex justify-between items-center">
       <h1 class="text-xl font-bold">BIDDERSHOP</h1>
       <nav class="hidden md:flex space-x-4">
@@ -26,9 +26,11 @@
         <p class="mb-4 text-dark">
           By signing up, you unlock access to a world of exclusive items, hot deals, and the thrill of the auction. Whether you're here to snag a rare gem or just enjoy the excitement, becoming a member means you're always in the front row. 
         </p>
-        <button id="registerButton" class="bg-primary text-white px-4 py-2 rounded">Register</button>
+        <div class="flex justify-center py-2">
+          <button id="registerButton" class="bg-primary text-white px-4 py-2 rounded">Register</button>
+        </div>
       </section>
-      <h3 class="text-lg font-bold mb-4 text-dark">CURRENT ITEMS OPEN FOR BIDS:</h3>
+      <h3 class="text-lg font-bold mb-4 text-dark flex justify-center">CURRENT ITEMS OPEN FOR BIDS:</h3>
       <section>
         <div id="itemsGrid" class="grid gap-6 grid-cols-1 md:grid-cols-2">
           <div id="loader" class="flex justify-center items-center h-40 col-span-full">
