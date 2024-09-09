@@ -15,7 +15,6 @@ export async function loginUser(email, password) {
       }),
     });
 
-    // Check if login was successful
     if (!response.ok) {
       const errorMessage = `Login failed: ${response.statusText}`;
       console.error(errorMessage);

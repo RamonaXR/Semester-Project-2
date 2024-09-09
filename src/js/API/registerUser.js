@@ -1,8 +1,15 @@
-// registerUser
 import { API_BASE_URL } from '../data/constants.js';
 
-export async function registerUser(name, email, password, bio = '', avatar = {}, banner = {}) {
+export async function registerUser(name, email, password, avatar = {}) {
   const url = `${API_BASE_URL}/auth/register`;
+
+  // Define the payload
+  const payload = {
+    name,
+    email,
+    password,
+    avatar,
+  };
 
   try {
     const response = await fetch(url, {
@@ -10,14 +17,7 @@ export async function registerUser(name, email, password, bio = '', avatar = {},
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-        bio,
-        avatar,
-        banner,
-      }),
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
