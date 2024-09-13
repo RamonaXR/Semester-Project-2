@@ -1,5 +1,7 @@
+import { authUpdate } from '../../auth/authUpdate';
+
 export function logout() {
   localStorage.clear();
-
-  window.location('/');
+  authUpdate();
+  window.location.href = '/';
 }

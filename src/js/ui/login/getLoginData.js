@@ -1,4 +1,8 @@
 import { loginUser } from '../../API/loginUser';
+import { validateField } from '../../utils/validateField';
+import { validationFeedback } from '../../utils/validationFeedback';
+import { errorMessage } from '../messages/errorMessage';
+import { REG_EMAIL, MSG_EMAIL_INVALID, MSG_PASSWORD_INVALID } from '../../data/constants';
 
 export function getLoginData() {
   const loginForm = document.querySelector('#loginForm');
@@ -6,17 +10,44 @@ export function getLoginData() {
 
   if (!loginForm) return;
 
+  const fields = {
+    email: loginForm.querySelector('#email'),
+    password: loginForm.querySelector('#password'),
+  };
+
+  const errorElements = {
+    email: loginForm.querySelector('#emailError'),
+    password: loginForm.querySelector('#passwordError'),
+  };
+
+  const validationRules = {
+    email: { required: true, pattern: REG_EMAIL, errorMessage: MSG_EMAIL_INVALID },
+    password: { required: true, minLength: 8, errorMessage: MSG_PASSWORD_INVALID },
+  };
+
+  Object.keys(fields).forEach((fieldName) => {
+    fields[fieldName].addEventListener('input', () => {
+      const error = validateField(fieldName, fields[fieldName].value, validationRules);
+      validationFeedback(error, errorElements[fieldName]);
+    });
+  });
+
   loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const email = event.target.email.value.toLowerCase().trim();
-    console.log(email);
-    const password = event.target.password.value.trim();
-    console.log(password);
+    const isValid = Object.keys(fields).every((fieldName) => {
+      const error = validateField(fieldName, fields[fieldName].value, validationRules);
+      validationFeedback(error, errorElements[fieldName]);
+      return !error;
+    });
 
-    //This is a good place to add validation
+    if (!isValid) {
+      errorMessage(document.getElementById('messageContainer'), 'Please correct the errors in the form.');
+      return;
+    }
 
-    // if validation is not ok, return
+    const email = fields.email.value.toLowerCase().trim();
+    const password = fields.password.value.trim();
 
     await loginUser(email, password);
   });
