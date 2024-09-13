@@ -1,30 +1,34 @@
-import { API_BASE_URL } from '../data/constants.js';
+import { API_AUTH, API_BASE_URL, API_LOGIN } from '../data/constants';
+import { saveToStorage } from '../localStorage/saveToStorage';
+import { fetchData } from './fetchData';
 
+// Code coming
 export async function loginUser(email, password) {
-  const url = `${API_BASE_URL}/auth/login`;
+  if (!email || !password) {
+    console.error('Missing email and password');
+    return;
+  }
 
   try {
-    const response = await fetch(url, {
-      method: 'POST',
+    const options = {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
-
-    if (!response.ok) {
-      const errorMessage = `Login failed: ${response.statusText}`;
-      console.error(errorMessage);
-      return { success: false, message: errorMessage };
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    };
+    const response = await fetchData(`${API_BASE_URL}${API_AUTH}${API_LOGIN}`, options);
+    console.log('response', response);
+    if (response.data) {
+      const data = await response.data;
+      const { accessToken, ...profile } = data;
+      console.log(accessToken, profile);
+      saveToStorage('accessToken', accessToken);
+      saveToStorage('userSession', profile);
+    } else {
+      console.error('Login failed');
     }
-
-    const result = await response.json();
-    return { success: true, accessToken: result.accessToken };
   } catch (error) {
-    console.error('Login error:', error);
-    return { success: false, message: 'An unexpected error occurred.' };
+    console.error('Error logging in', error);
   }
 }

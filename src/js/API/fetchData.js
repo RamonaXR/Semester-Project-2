@@ -1,30 +1,25 @@
-import { API_BASE_URL, getHeaders } from '../data/constants.js';
+import { errorAPI } from '../errorhandling/errorAPI.js';
 
-export async function fetchData(endpoint, accessToken, method = 'GET', body = null) {
-  const url = `${API_BASE_URL}${endpoint}`;
-  const options = {
-    method,
-    headers: getHeaders(accessToken),
-  };
-
-  if (body) {
-    options.body = JSON.stringify(body);
+export async function fetchData(url, options = {}) {
+  if (!url || typeof url !== 'string' || !url.trim()) {
+    console.error('Invalid URL provided');
+    return { success: false, message: 'Invalid URL' };
   }
 
   try {
     const response = await fetch(url, options);
-    console.log('Response:', response);
-
     const result = await response.json();
 
-    if (!response.ok) {
-      const errorMessage = response.statusText || 'Unknown error occurred';
-      return { success: false, status: response.status, message: errorMessage };
+    const errorCheck = errorAPI(response);
+
+    if (!errorCheck.success) {
+      console.error('API Error:', errorCheck.message);
+      return { success: false, message: errorCheck.message, status: response.status };
     }
 
-    return { success: true, data: result };
+    return result;
   } catch (error) {
-    console.error('Fetch error:', error);
-    return { success: false, message: 'An unexpected error occurred.' };
+    console.error('Fetch failed:', error.message);
+    return { success: false, message: 'Fetch error occurred.' };
   }
 }

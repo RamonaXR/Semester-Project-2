@@ -1,9 +1,8 @@
-import { API_BASE_URL } from '../data/constants.js';
+import { API_BASE_URL, API_KEY } from '../data/constants.js';
 
-export async function registerUser(name, email, password, avatar = {}) {
+export async function registerUser(name, email, password, avatar = { url: '', alt: '' }) {
   const url = `${API_BASE_URL}/auth/register`;
 
-  // Define the payload
   const payload = {
     name,
     email,
@@ -12,24 +11,29 @@ export async function registerUser(name, email, password, avatar = {}) {
   };
 
   try {
+    console.log('Register Payload:', payload);
+
     const response = await fetch(url, {
       method: 'POST',
       headers: {
+        'X-Noroff-API-Key': API_KEY,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
     });
 
+    const result = await response.json();
+
     if (!response.ok) {
-      const errorMessage = `Registration failed: ${response.statusText}`;
+      const errorMessage = `Registration failed: ${response.statusText}, ${result.message || ''}`;
       console.error(errorMessage);
       return { success: false, message: errorMessage };
     }
 
-    const result = await response.json();
+    console.log('Registration Successful:', result);
     return { success: true, data: result };
   } catch (error) {
     console.error('Registration error:', error);
-    return { success: false, message: 'An unexpected error occurred.' };
+    return { success: false, message: 'An unexpected error occurred during registration.' };
   }
 }

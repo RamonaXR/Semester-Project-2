@@ -3,15 +3,14 @@ export function createModal(content) {
   modal.id = 'modal';
   modal.classList = 'fixed inset-0 bg-dark92 flex items-center justify-center';
   modal.innerHTML = `
-    <div class="bg-white p-6 rounded-lg w-11/12 max-w-md">
+    <div class="bg-white p-6 rounded-lg w-11/12 max-w-md relative">
       <button id="closeModal" class="absolute top-2 right-2 text-black">X</button>
       <div id="modalContent">${content}</div>
     </div>
   `;
 
-  document.body.appendChild(modal);
+  document.body.append(modal);
 
-  // Close modal when 'X' is clicked
   document.getElementById('closeModal').addEventListener('click', () => {
     closeModal();
   });
