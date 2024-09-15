@@ -3,6 +3,7 @@ export function validationFeedback(error, errorElement) {
     errorElement.textContent = error;
     errorElement.classList.remove('hidden');
   } else {
+    errorElement.textContent = '';
     errorElement.classList.add('hidden');
   }
 }
