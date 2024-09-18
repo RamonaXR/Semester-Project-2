@@ -1,6 +1,6 @@
 import { loginUser } from '../../API/loginUser';
-import { validateField } from '../../utils/validateField';
-import { validationFeedback } from '../../utils/validationFeedback';
+import { validateField } from '../../utils/validation/validateField';
+import { validationFeedback } from '../../utils/validation/validationFeedback';
 import { errorMessage } from '../messages/errorMessage';
 import { REG_EMAIL, MSG_EMAIL_INVALID, MSG_PASSWORD_INVALID } from '../../data/constants';
 
@@ -49,6 +49,15 @@ export function getLoginData() {
     const email = fields.email.value.toLowerCase().trim();
     const password = fields.password.value.trim();
 
-    await loginUser(email, password);
+    try {
+      const result = await loginUser(email, password);
+
+      if (result && !result.success) {
+        errorMessage(document.getElementById('messageContainer'), result.message);
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      errorMessage(document.getElementById('messageContainer'), 'An unexpected error occurred. Please try again later.');
+    }
   });
 }
