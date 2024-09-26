@@ -25,8 +25,11 @@ export async function registerUser(name, email, password, avatar = { url: '', al
     const result = await response.json();
 
     if (!response.ok) {
-      const errorMessage = `Registration failed: ${response.statusText}, ${result.message || ''}`;
-      console.error(errorMessage);
+      const errorMessage = result.message || 'Registration failed';
+      if (response.status === 400) {
+        // Email already registered
+        return { success: false, message: 'This email is already registered. Please use a different email.' };
+      }
       return { success: false, message: errorMessage };
     }
 

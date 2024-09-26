@@ -3,6 +3,7 @@ import { saveToStorage } from '../localStorage/saveToStorage';
 import { fetchData } from './fetchData';
 import { authUpdate } from '../auth/authUpdate';
 import { getProfile } from './getProfile';
+import { closeModal } from '../ui/modal/createModal';
 
 export async function loginUser(email, password) {
   if (!email || !password) {
@@ -30,8 +31,15 @@ export async function loginUser(email, password) {
 
       await getProfile();
       authUpdate();
+      setTimeout(() => {
+        closeModal();
+      }, 300);
+      return { success: true };
+    } else if (response.status === 401) {
+      // Handle 401 Already registered
+      return { success: false, message: 'Incorrect email or password. Please try again.' };
     } else {
-      console.error('Login failed: No data returned from API.');
+      return { success: false, message: 'Login failed due to server error.' };
     }
   } catch (error) {
     console.error('Error logging in:', error);
