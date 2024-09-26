@@ -9,7 +9,7 @@ export default {
         grayLighter: '#E9ECED',
         dark: '#111111',
         dark92: '#111111E9', // 92% opacity
-        red: '#DA2828',
+        customRed: '#DA2828',
       },
       keyframes: {
         spin: {
@@ -26,7 +26,7 @@ export default {
       borderColor: {
         topPrimary: '#BE1D1D',
         rightGrayLight: '#D9D9D9',
-        bottomRed: '#DA2828',
+        bottomCustomRed: '#DA2828',
         leftGrayLighter: '#E9ECED',
       },
     },

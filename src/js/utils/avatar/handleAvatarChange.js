@@ -8,6 +8,7 @@ import { closeModal } from '../../ui/modal/createModal';
 
 export async function handleAvatarChange(avatarUrlInput, avatarPreview) {
   const newAvatarUrl = avatarUrlInput.value.trim();
+  console.log(newAvatarUrl);
   if (newAvatarUrl) {
     const result = await updateAvatar(newAvatarUrl);
 
@@ -28,7 +29,7 @@ export async function handleAvatarChange(avatarUrlInput, avatarPreview) {
       authUpdate();
 
       // Close the modal after a successful update
-      closeModal();
+      //closeModal();
     } else {
       errorMessage(document.getElementById('messageContainer'), 'Failed to update avatar.');
     }

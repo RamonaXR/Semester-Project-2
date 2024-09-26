@@ -3,13 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="BidderShop is your go-to auction site for winning big on exclusive items. Sign up, place your bids, and score great deals today! New users get 1000 credits upon registration." />
     <link rel="stylesheet" href="./src/index.css" />
+    <script src="https://kit.fontawesome.com/a2089e7094.js" crossorigin="anonymous"></script>
     <script type="module" src="./src/js/index.js"></script>
     <title>Biddershop</title>
   </head>
-  <body class="bg-grayLighter font-sans m-0">
+  <body class="bg-grayLighter font-sans m-0 h-dvh flex flex-col">
     <header class="bg-primary text-white p-4 flex flex-col md:flex-row justify-between items-center">
-      <h1 class="text-xl font-bold py-4 text-black">BIDDERSHOP</h1>
+      <h1 class="text-xl font-bold py-4 text-black">BIDDERSHOP | Online Auction</h1>
       <nav aria-label="Main navigation" class="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 justify-center items-center w-full md:w-auto">
         <button id="addListingButton" class="hover:underline p-2">Add new listing</button>
         <button id="profileButton" class="hover:underline p-2">Profile</button>
@@ -17,7 +19,7 @@
         <button id="logoutButton" class="hidden">Log Out</button>
       </nav>
     </header>
-    <main class="p-4 md:px-16 lg:px-32">
+    <main class="p-4 md:px-16 lg:px-32 grow">
       <section class="container bg-white p-6 mb-8 shadow-lg mx-auto">
         <img src="#" alt="Gavel Image" class="w-full h-48 object-cover mb-4" />
         <h2 class="text-lg font-bold mb-4 text-dark">Welcome to BidderShop</h2>
@@ -32,19 +34,32 @@
         </div>
       </section>
       <h3 class="text-lg font-bold mb-4 text-dark flex justify-center">CURRENT ITEMS OPEN FOR BIDS:</h3>
+      <form id="searchForm" class="flex justify-center mb-6">
+        <label for="searchInput" class="sr-only">Search</label>
+        <input type="text" id="searchInput" class="border px-4 py-2 rounded-l-full w-full md:w-1/2" placeholder="Search listings..." />
+        <button class="rounded-r-full bg-primary py-2 px-4 text-white">Search</button>
+      </form>
+      <div class="flex justify-end w-full md:w-auto">
+        <label for="sortSelect" class="mr-2">Sort by:</label>
+        <select id="sortSelect" class="border px-4 py-2 rounded">
+          <option value="newest">Newest</option>
+          <option value="endingSoonest">Ending Soonest</option>
+          <option value="endingLatest">Ending Latest</option>
+        </select>
+      </div>
+
       <section>
-        <div id="itemsGrid" class="grid gap-6 grid-cols-1 md:grid-cols-2">
+        <div id="itemsGrid" class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           <div id="loader" class="flex justify-center items-center h-40 col-span-full">
             <div class="animate-spin ease-linear rounded-full border-8 border-t-8 border-t-primary border-r-grayLight border-b-red border-l-grayLighter h-16 w-16"></div>
           </div>
         </div>
       </section>
     </main>
-    <footer class="bg-dark text-white p-4 mt-8 flex flex-col items-center space-y-4">
+    <footer class="bg-dark text-white p-4 mt-8 flex flex-col items-center space-y-4 sticky bottom-0">
       <h2 class="text-xl text-red font-bold mb-4">BIDDERSHOP</h2>
       <nav aria-label="Footer navigation" class="flex flex-col space-y-2 items-center justify-center">
-        <button id="contactButton" class="block p-2">CONTACT</button>
-        <button id="footerRegisterButton" class="block p-2">REGISTER</button>
+        <button id="addListingFooterButton" class="block p-2">ADD LISTING</button>
       </nav>
     </footer>
   </body>

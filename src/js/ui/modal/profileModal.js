@@ -1,22 +1,21 @@
-import { loadFromStorage } from '../../localStorage/loadFromStorage.js';
 import { createModal, closeModal } from './createModal.js';
 import { profile, login } from './modalContent.js';
 import { updateAvatar } from '../../API/updateAvatar.js';
 import { errorMessage } from '../messages/errorMessage.js';
 import { successMessage } from '../messages/successMessage.js';
 import { setupAvatarChange } from '../../utils/avatar/setupAvatarChange.js';
+import { isUserLoggedIn } from '../../localStorage/isUserLoggedIn.js';
 
 export async function profileModal() {
   const profileButton = document.getElementById('profileButton');
-  const session = await loadFromStorage('userSession');
+  //const session = await loadFromStorage('userSession');
 
   if (profileButton) {
     profileButton.addEventListener('click', async () => {
-      const session = loadFromStorage('userSession');
-
-      if (!session) {
+      if (!isUserLoggedIn()) {
+        // Check if user is logged in
         const loginContent = login();
-        createModal(loginContent);
+        createModal(loginContent); // Redirect to login modal if not logged in
         return;
       }
 
@@ -27,14 +26,15 @@ export async function profileModal() {
       createModal(content);
 
       const avatarUrlInput = document.getElementById('avatarUrl');
-      const avatarPreview = document.getElementById('avatarPreview');
+      //const avatarPreview = document.getElementById('avatarPreview');
+      const avatarForm = document.getElementById('updateAvatar');
 
       // Avatar change functionality for profile modal
       setupAvatarChange('avatarUrl', 'avatarPreview', 'changeAvatarButton');
 
-      const changeAvatarButton = document.getElementById('changeAvatarButton');
-      if (changeAvatarButton) {
-        changeAvatarButton.addEventListener('click', async () => {
+      if (avatarForm) {
+        avatarForm.addEventListener('submit', async (event) => {
+          event.preventDefault();
           const newAvatarUrl = avatarUrlInput.value.trim();
           if (newAvatarUrl) {
             const result = await updateAvatar(newAvatarUrl);
@@ -46,9 +46,8 @@ export async function profileModal() {
               if (headerAvatar) {
                 headerAvatar.src = newAvatarUrl;
               }
-
-              closeModal(); // Close the modal after updating avatar
-              await profileModal(); // Refresh the profile modal to reflect the updated avatar
+              avatarForm.reset();
+              // closeModal(); // Close the modal after updating avatar
             } else {
               errorMessage(document.getElementById('messageContainer'), 'Failed to update avatar.');
             }

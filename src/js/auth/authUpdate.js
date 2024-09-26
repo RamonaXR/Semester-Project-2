@@ -1,10 +1,11 @@
 import { loadFromStorage } from '../localStorage/loadFromStorage.js';
+import { isUserLoggedIn } from '../localStorage/isUserLoggedIn.js';
 
 export function authUpdate() {
   const userSession = loadFromStorage('userSession');
   console.log('Loaded user session in authUpdate:', userSession);
 
-  if (userSession) {
+  if (isUserLoggedIn()) {
     // Hide login and register buttons when user is logged in
     const loginButton = document.getElementById('loginButton');
     const registerButton = document.getElementById('registerButton');

@@ -5,7 +5,9 @@ export function createModal(content) {
 
   modal.innerHTML = `
     <div class="bg-white p-6 rounded-lg w-11/12 max-w-md relative z-60">
-      <button id="closeModal" class="absolute top-2 right-2 text-black text-3xl p-4 focus:outline-none">X</button>
+    <button id="closeModal" class="absolute top-2 right-2 text-black text-2xl">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
       <div id="modalContent">${content}</div>
     </div>
   `;
