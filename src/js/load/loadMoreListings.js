@@ -40,7 +40,7 @@ window.addEventListener('scroll', () => {
   const documentHeight = document.body.scrollHeight;
   const windowHeight = window.innerHeight;
 
-  if (scrollTop + windowHeight >= documentHeight - 1) {
+  if (scrollTop + windowHeight >= documentHeight - 300) {
     const page = loadFromStorage('page');
     const newPage = +page + 1;
     saveToStorage('page', newPage);
