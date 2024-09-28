@@ -26,7 +26,6 @@ export async function initialize() {
   if (loginButton) loginModal();
   if (registerButton) registerModal();
 
-  // REOPEN IN NEW BRANCH
   /*
   if (addListingButton) {
     addListingButton.addEventListener('click', () => {
@@ -48,7 +47,8 @@ export async function initialize() {
         loginModal();
       }
     });
-  } */
+  } 
+  */
 
   // Fetch and render listings
   const listings = await fetchListings();

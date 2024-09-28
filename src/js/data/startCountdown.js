@@ -8,7 +8,7 @@ export function startCountdown(endTime, countdownElement) {
     if (distance < 0) {
       // Display "Ended" if the time has passed
       countdownElement.textContent = 'Ended';
-      countdownElement.classList.add('text-red-500');
+      countdownElement.classList.add('text-red-600');
       countdownElement.classList.remove('text-green-800');
     } else {
       // Calculate time left
