@@ -21,7 +21,6 @@ export async function loginUser(email, password) {
     };
 
     const response = await fetchData(`${API_BASE_URL}${API_AUTH}${API_LOGIN}`, options);
-    console.log('Response from API:', response);
 
     if (response && response.data) {
       const { accessToken, ...profile } = response.data;

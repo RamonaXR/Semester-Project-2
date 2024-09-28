@@ -1,96 +1,358 @@
 import { loadFromStorage } from '../../localStorage/loadFromStorage';
+import { isUserLoggedIn } from '../../localStorage/isUserLoggedIn';
+import { renderBids } from '../../rendering/renderBids';
+import { renderBidForm } from '../../rendering/renderBidForm';
+import { galleryModal } from './galleryModal';
+import { startCountdown } from '../../data/startCountdown';
+import placeholder from '/images/placeholder.png';
 
 export function login() {
-  const content = `
-  <section>
-  <form id="loginForm" class="bg-white p-6 shadow-lg" aria-labelledby="loginTitle">
-    <h2 id="loginTitle" class="text-lg font-bold mb-4 text-dark text-center">Login to BidderShop</h2>
-    
-    <label for="email" class="block mb-2">Email:</label>
-    <input type="email" id="email" class="border p-2 w-full mb-4" required />
-    <small id="emailError" class="text-red-500 hidden"></small>
-    
-    <label for="password" class="block mb-2">Password:</label>
-    <input type="password" id="password" class="border p-2 w-full mb-4" required />
-    <small id="passwordError" class="text-red-500 hidden"></small> 
-    
-    <div id="messageContainer" class="hidden" aria-live="polite"></div> 
-    
-    <div class="flex justify-center">
-      <button type="submit" class="bg-primary text-white px-4 py-2 mt-4 rounded">Login</button>
-    </div>
-  </form>
-</section>
-  `;
-  return content;
+  const section = document.createElement('section');
+
+  const form = document.createElement('form');
+  form.id = 'loginForm';
+  form.className = 'bg-white p-6 shadow-lg';
+  form.setAttribute('aria-labelledby', 'loginTitle');
+
+  const title = document.createElement('h2');
+  title.id = 'loginTitle';
+  title.className = 'text-lg font-bold mb-4 text-dark text-center';
+  title.textContent = 'Login to BidderShop';
+
+  // Email label and input
+  const emailLabel = document.createElement('label');
+  emailLabel.setAttribute('for', 'email');
+  emailLabel.className = 'block mb-2';
+  emailLabel.textContent = 'Email:';
+
+  const emailInput = document.createElement('input');
+  emailInput.type = 'email';
+  emailInput.id = 'email';
+  emailInput.className = 'border p-2 w-full mb-4';
+  emailInput.required = true;
+
+  const emailError = document.createElement('small');
+  emailError.id = 'emailError';
+  emailError.className = 'text-red-500 hidden';
+
+  // Password label and input
+  const passwordLabel = document.createElement('label');
+  passwordLabel.setAttribute('for', 'password');
+  passwordLabel.className = 'block mb-2';
+  passwordLabel.textContent = 'Password:';
+
+  const passwordInput = document.createElement('input');
+  passwordInput.type = 'password';
+  passwordInput.id = 'password';
+  passwordInput.className = 'border p-2 w-full mb-4';
+  passwordInput.required = true;
+
+  const passwordError = document.createElement('small');
+  passwordError.id = 'passwordError';
+  passwordError.className = 'text-red-500 hidden';
+
+  // Message container
+  const messageContainer = document.createElement('div');
+  messageContainer.id = 'messageContainer';
+  messageContainer.className = 'hidden';
+  messageContainer.setAttribute('aria-live', 'polite');
+
+  // Submit button
+  const buttonDiv = document.createElement('div');
+  buttonDiv.className = 'flex justify-center';
+
+  const submitButton = document.createElement('button');
+  submitButton.type = 'submit';
+  submitButton.className = 'bg-primary text-white px-4 py-2 mt-4 rounded';
+  submitButton.textContent = 'Login';
+
+  buttonDiv.appendChild(submitButton);
+
+  // Append all elements to the form
+  form.append(title, emailLabel, emailInput, emailError, passwordLabel, passwordInput, passwordError, messageContainer, buttonDiv);
+
+  section.appendChild(form);
+
+  return section;
 }
 
 export async function profile() {
   const session = await loadFromStorage('userSession');
   const defaultAvatarUrl = 'https://i.pravatar.cc/200';
-  const content = `
-  <section>
-  <div class="bg-white p-6 shadow-lg">
-    <div id="messageContainer" class="mb-4" aria-live="polite"></div> 
-    <h2 class="text-lg font-bold mb-4 text-dark text-center">${session.name}</h2>
-    
-    <form id="updateAvatar" class="flex flex-col items-center mb-4">
-      <img id="avatarPreview" src="${session.avatar.url}" alt="${session.name}'s avatar" class="h-24 w-24 rounded-full object-cover mb-2" />
-      <p class="text-center mb-4">Your avatar URL:</p>
-      <input type="text" id="avatarUrl" class="border px-3 py-1 mb-2 rounded w-full" placeholder="${defaultAvatarUrl}" />
-      <button type="submit" id="changeAvatarButton" class="bg-primary text-white px-4 py-1 rounded">Change avatar</button>
-    </form>
-    
-    <p class="text-center mb-4">Current credits: ${session.credits}</p>
-    
-    <div class="flex justify-center">
-      <button id="logoutButton" class="bg-primary text-white px-4 py-2 rounded">Log Out</button>
-    </div>
-  </div>
-</section>
-  `;
 
-  return content;
+  const section = document.createElement('section');
+
+  const container = document.createElement('div');
+  container.className = 'bg-white p-6 shadow-lg';
+
+  const messageContainer = document.createElement('div');
+  messageContainer.id = 'messageContainer';
+  messageContainer.className = 'mb-4';
+  messageContainer.setAttribute('aria-live', 'polite');
+
+  const title = document.createElement('h2');
+  title.className = 'text-lg font-bold mb-4 text-dark text-center';
+  title.textContent = session.name;
+
+  // Avatar update form
+  const form = document.createElement('form');
+  form.id = 'updateAvatar';
+  form.className = 'flex flex-col items-center mb-4';
+
+  const avatarPreview = document.createElement('img');
+  avatarPreview.id = 'avatarPreview';
+  avatarPreview.src = session.avatar.url;
+  avatarPreview.alt = `${session.name}'s avatar`;
+  avatarPreview.className = 'h-24 w-24 rounded-full object-cover mb-2';
+
+  const avatarText = document.createElement('p');
+  avatarText.className = 'text-center mb-4';
+  avatarText.textContent = 'Your avatar URL:';
+
+  const avatarInput = document.createElement('input');
+  avatarInput.type = 'text';
+  avatarInput.id = 'avatarUrl';
+  avatarInput.className = 'border px-3 py-1 mb-2 rounded w-full';
+  avatarInput.placeholder = defaultAvatarUrl;
+
+  const avatarButton = document.createElement('button');
+  avatarButton.type = 'submit';
+  avatarButton.id = 'changeAvatarButton';
+  avatarButton.className = 'bg-primary text-white px-4 py-1 rounded';
+  avatarButton.textContent = 'Change avatar';
+
+  form.append(avatarPreview, avatarText, avatarInput, avatarButton);
+
+  // Current credits
+  const creditsText = document.createElement('p');
+  creditsText.className = 'text-center mb-4';
+  creditsText.textContent = `Current credits: ${session.credits}`;
+
+  // Logout button
+  const buttonDiv = document.createElement('div');
+  buttonDiv.className = 'flex justify-center';
+
+  const logoutButton = document.createElement('button');
+  logoutButton.id = 'logoutButton';
+  logoutButton.className = 'bg-primary text-white px-4 py-2 rounded';
+  logoutButton.textContent = 'Log Out';
+
+  buttonDiv.append(logoutButton);
+
+  container.append(messageContainer, title, form, creditsText, buttonDiv);
+
+  section.append(container);
+
+  return section;
 }
 
 export function register() {
   const defaultAvatarUrl = 'https://i.pravatar.cc/200';
-  const content = `
-  <section>
-  <form id="registrationForm" class="bg-white p-6 shadow-lg" aria-labelledby="registerTitle">
-    <h2 id="registerTitle" class="text-lg font-bold mb-4 text-dark text-center">Register for BidderShop</h2>
 
-    <div class="flex flex-col items-center mb-4">
-      <img id="avatarPreview" src="${defaultAvatarUrl}" alt="Avatar Preview" class="h-24 w-24 rounded-full object-cover mb-2" />
-      <p class="text-center mb-4">Your avatar URL:</p>
-      <input type="url" id="avatarUrl" class="border p-2 w-full mb-2" placeholder="${defaultAvatarUrl}" />
-      <button type="button" id="changeAvatarButton" class="bg-primary text-white px-4 py-1 rounded">Change Avatar</button>
-    </div>
+  const section = document.createElement('section');
 
-    <label for="username" class="block mb-2">Username:</label>
-    <input type="text" id="username" class="border p-2 w-full mb-4" required placeholder="Enter your username" />
-    <small id="usernameError" class="text-red-500 hidden"></small> 
+  const form = document.createElement('form');
+  form.id = 'registrationForm';
+  form.className = 'bg-white p-6 shadow-lg';
+  form.setAttribute('aria-labelledby', 'registerTitle');
 
-    <label for="email" class="block mb-2">Email:</label>
-    <input type="email" id="email" class="border p-2 w-full mb-4" required placeholder="email@stud.noroff.no" />
-    <small id="emailError" class="text-red-950 hidden"></small> 
+  const title = document.createElement('h2');
+  title.id = 'registerTitle';
+  title.className = 'text-lg font-bold mb-4 text-dark text-center';
+  title.textContent = 'Register for BidderShop';
 
-    <label for="password" class="block mb-2">Password:</label>
-    <input type="password" id="password" class="border p-2 w-full mb-4" required placeholder="Minimum 8 characters" />
-    <small id="passwordError" class="text-red-500 hidden"></small>
+  // Avatar section
+  const avatarDiv = document.createElement('div');
+  avatarDiv.className = 'flex flex-col items-center mb-4';
 
-    <div id="messageContainer" class="hidden" aria-live="polite"></div> 
+  const avatarPreview = document.createElement('img');
+  avatarPreview.id = 'avatarPreview';
+  avatarPreview.src = defaultAvatarUrl;
+  avatarPreview.alt = 'Avatar Preview';
+  avatarPreview.className = 'h-24 w-24 rounded-full object-cover mb-2';
 
-    <div class="flex justify-center">
-      <button type="submit" class="bg-primary text-white px-4 py-2 mt-4 rounded">Register</button>
-    </div>
-  </form>
-</section>
-  `;
-  return content;
+  const avatarText = document.createElement('p');
+  avatarText.className = 'text-center mb-4';
+  avatarText.textContent = 'Your avatar URL:';
+
+  const avatarInput = document.createElement('input');
+  avatarInput.type = 'url';
+  avatarInput.id = 'avatarUrl';
+  avatarInput.className = 'border p-2 w-full mb-2';
+  avatarInput.placeholder = defaultAvatarUrl;
+
+  const avatarButton = document.createElement('button');
+  avatarButton.type = 'button';
+  avatarButton.id = 'changeAvatarButton';
+  avatarButton.className = 'bg-primary text-white px-4 py-1 rounded';
+  avatarButton.textContent = 'Change Avatar';
+
+  avatarDiv.append(avatarPreview, avatarText, avatarInput, avatarButton);
+
+  // Username
+  const usernameLabel = document.createElement('label');
+  usernameLabel.setAttribute('for', 'username');
+  usernameLabel.className = 'block mb-2';
+  usernameLabel.textContent = 'Username:';
+
+  const usernameInput = document.createElement('input');
+  usernameInput.type = 'text';
+  usernameInput.id = 'username';
+  usernameInput.className = 'border p-2 w-full mb-4';
+  usernameInput.required = true;
+  usernameInput.placeholder = 'Enter your username';
+
+  const usernameError = document.createElement('small');
+  usernameError.id = 'usernameError';
+  usernameError.className = 'text-red-500 hidden';
+
+  // Email
+  const emailLabel = document.createElement('label');
+  emailLabel.setAttribute('for', 'email');
+  emailLabel.className = 'block mb-2';
+  emailLabel.textContent = 'Email:';
+
+  const emailInput = document.createElement('input');
+  emailInput.type = 'email';
+  emailInput.id = 'email';
+  emailInput.className = 'border p-2 w-full mb-4';
+  emailInput.required = true;
+  emailInput.placeholder = 'email@stud.noroff.no';
+
+  const emailError = document.createElement('small');
+  emailError.id = 'emailError';
+  emailError.className = 'text-red-950 hidden';
+
+  // Password
+  const passwordLabel = document.createElement('label');
+  passwordLabel.setAttribute('for', 'password');
+  passwordLabel.className = 'block mb-2';
+  passwordLabel.textContent = 'Password:';
+
+  const passwordInput = document.createElement('input');
+  passwordInput.type = 'password';
+  passwordInput.id = 'password';
+  passwordInput.className = 'border p-2 w-full mb-4';
+  passwordInput.required = true;
+  passwordInput.placeholder = 'Minimum 8 characters';
+
+  const passwordError = document.createElement('small');
+  passwordError.id = 'passwordError';
+  passwordError.className = 'text-red-500 hidden';
+
+  // Message container
+  const messageContainer = document.createElement('div');
+  messageContainer.id = 'messageContainer';
+  messageContainer.className = 'hidden';
+  messageContainer.setAttribute('aria-live', 'polite');
+
+  // Submit button
+  const buttonDiv = document.createElement('div');
+  buttonDiv.className = 'flex justify-center';
+
+  const submitButton = document.createElement('button');
+  submitButton.type = 'submit';
+  submitButton.className = 'bg-primary text-white px-4 py-2 mt-4 rounded';
+  submitButton.textContent = 'Register';
+
+  buttonDiv.append(submitButton);
+
+  form.append(title, avatarDiv, usernameLabel, usernameInput, usernameError, emailLabel, emailInput, emailError, passwordLabel, passwordInput, passwordError, messageContainer, buttonDiv);
+
+  section.append(form);
+
+  return section;
 }
 
 export function listingModalContent(listing) {
-  // Placeholder modal content until implementing the actual modal
-  return `<div>Listing details for: ${listing.title}</div>`;
+  console.log('Rendering listing:', listing); // Log the listing data
+
+  const userLoggedIn = isUserLoggedIn();
+  const hasEnded = new Date(listing.endsAt) < new Date(); // Check if the listing has ended
+
+  const element = document.createElement('div');
+  element.classList.add('listing-modal-content', 'bg-white', 'p-6', 'rounded-lg', 'w-full', 'max-w-lg', 'max-h-[80vh]', 'overflow-y-auto');
+
+  const image = document.createElement('img');
+  if (listing.media && listing.media.length > 0) {
+    image.src = listing.media[0]?.url || placeholder;
+    image.alt = listing.media[0]?.alt || listing.title;
+  } else {
+    image.src = placeholder;
+    image.alt = listing.title;
+  }
+  image.classList.add('w-full', 'aspect-square', 'object-cover', 'mb-4');
+  image.addEventListener('click', (e) => {
+    e.stopPropagation();
+    galleryModal(listing.media);
+  });
+
+  // Title
+  const title = document.createElement('h2');
+  title.classList.add('text-lg', 'font-bold', 'mb-4', 'text-dark', 'text-center');
+  title.textContent = listing.title;
+
+  // Seller Info
+  const sellerInfo = document.createElement('div');
+  sellerInfo.classList.add('flex', 'items-center', 'mb-4', 'text-sm');
+
+  const sellerAvatar = document.createElement('img');
+  if (listing.seller?.avatar?.url) {
+    sellerAvatar.src = listing.seller.avatar.url;
+    sellerAvatar.alt = listing.seller.name || 'Seller Avatar';
+  } else {
+    sellerAvatar.src = placeholder; // Fallback if no avatar is provided
+    sellerAvatar.alt = 'Seller Avatar';
+  }
+  sellerAvatar.classList.add('w-8', 'h-8', 'rounded-full', 'mr-2');
+
+  const sellerName = document.createElement('span');
+  sellerName.textContent = listing.seller?.name || 'Unknown seller';
+
+  sellerInfo.appendChild(sellerAvatar);
+  sellerInfo.appendChild(sellerName);
+
+  // Description
+  const description = document.createElement('p');
+  description.classList.add('mb-4', 'text-center');
+  description.textContent = listing.description;
+
+  // Ends At
+  const endsAt = document.createElement('p');
+  endsAt.classList.add('font-bold', 'text-sm', 'mb-4', 'mt-auto');
+  endsAt.textContent = `Ends at: ${new Date(listing.endsAt).toLocaleString()}`;
+
+  // Start dynamic countdown
+  startCountdown(listing.endsAt, endsAt);
+
+  element.append(image, title, sellerInfo, description, endsAt);
+
+  // Render the bids section if user is logged in and the listing hasn't ended
+  if (userLoggedIn && !hasEnded) {
+    const bidsSection = document.createElement('div');
+    bidsSection.setAttribute('id', 'bidsSection');
+
+    const bidsList = renderBids(listing.bids);
+    bidsSection.appendChild(bidsList);
+
+    const bidsForm = renderBidForm(listing.id);
+    bidsSection.appendChild(bidsForm);
+
+    element.appendChild(bidsSection);
+  } else if (hasEnded) {
+    const endedMessage = document.createElement('p');
+    endedMessage.classList.add('text-center', 'font-bold');
+    endedMessage.textContent = 'This listing has ended. No more bids can be placed.';
+    element.append(endedMessage);
+  }
+
+  // If the user is not logged in and the listing hasn't ended, show login prompt
+  if (!userLoggedIn && !hasEnded) {
+    const loginMessage = document.createElement('p');
+    loginMessage.classList.add('text-center');
+    loginMessage.textContent = 'Log in to view and place bids';
+    element.append(loginMessage);
+  }
+
+  return element;
 }

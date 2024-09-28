@@ -7,10 +7,14 @@ import { fetchListings } from '../API/fetchListings';
 import { renderListings } from '../rendering/renderListings';
 import { removeLoader } from '../ui/loader/removeLoader';
 import { loadMoreListings } from '../load/loadMoreListings';
+import { saveToStorage } from '../localStorage/saveToStorage';
 
 // REMEMBER TO CLEAN THIS FILE AND MAKE IT MODULAR
 
 export async function initialize() {
+  saveToStorage('scroll', false);
+  setTimeout(() => saveToStorage('page', 1), 500);
+
   const profile = loadFromStorage('userSession');
   if (profile) authUpdate();
 
@@ -22,7 +26,7 @@ export async function initialize() {
   if (loginButton) loginModal();
   if (registerButton) registerModal();
 
-  // REMOVE COMMENT STATE IN NEW BRANCH
+  // REOPEN IN NEW BRANCH
   /*
   if (addListingButton) {
     addListingButton.addEventListener('click', () => {
@@ -44,11 +48,11 @@ export async function initialize() {
         loginModal();
       }
     });
-  }
-*/
+  } */
 
   // Fetch and render listings
   const listings = await fetchListings();
+  console.log(listings);
   if (listings.length > 0) {
     renderListings(listings);
   } else {

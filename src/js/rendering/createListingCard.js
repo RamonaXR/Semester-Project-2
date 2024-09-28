@@ -1,19 +1,15 @@
 import { startCountdown } from '../data/startCountdown';
-import { galleryModal } from '../ui/modal/galleryModal';
+import placeholder from '/images/placeholder.png';
 
 export function createListingCard(listing) {
   const listingCard = document.createElement('article');
-  listingCard.classList.add('listing-card', 'bg-gray-100', 'p-4', 'shadow-md', 'rounded', 'cursor-pointer', 'flex', 'flex-col', 'h-full');
+  listingCard.classList.add('listing-card', 'bg-white', 'p-4', 'shadow-md', 'rounded', 'cursor-pointer', 'flex', 'flex-col', 'h-full');
   listingCard.setAttribute('data-id', listing.id);
 
-  const gallery = document.createElement('div');
-  gallery.classList.add('gallery', 'mb-4');
-
   const imgElement = document.createElement('img');
-  imgElement.src = listing.media[0]?.url || 'https://via.placeholder.com/150';
+  imgElement.src = listing.media[0]?.url || placeholder;
   imgElement.alt = listing.media[0]?.alt || listing.title;
   imgElement.classList.add('w-full', 'aspect-square', 'object-cover', 'rounded');
-  gallery.append(imgElement);
 
   const content = document.createElement('div');
   content.classList.add('flex-grow', 'flex', 'flex-col', 'justify-between');
@@ -39,11 +35,6 @@ export function createListingCard(listing) {
   // Start the dynamic countdown
   startCountdown(listing.endsAt, endsAt);
 
-  imgElement.addEventListener('click', (e) => {
-    e.stopPropagation(); // Prevent card click event
-    galleryModal(listing.media);
-  });
-
-  listingCard.append(gallery, title, sellerInfo, description, endsAt);
+  listingCard.append(imgElement, title, sellerInfo, description, endsAt);
   return listingCard;
 }

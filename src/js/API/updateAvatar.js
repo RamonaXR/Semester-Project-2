@@ -6,6 +6,10 @@ import { fetchData } from './fetchData.js';
 export async function updateAvatar(newAvatarUrl) {
   const profile = loadFromStorage('userSession');
   const token = loadFromStorage('accessToken');
+  console.log('Token:', token); // Check if this is logged and valid
+  if (!token) {
+    return { success: false, message: 'User not logged in.' };
+  }
 
   if (!profile || !token) {
     console.error('User session or token missing.');
@@ -29,12 +33,7 @@ export async function updateAvatar(newAvatarUrl) {
   };
 
   try {
-    console.log(`Sending PUT request to: ${profileUrl}`);
-    console.log('Payload:', payload);
-
     const response = await fetchData(profileUrl, options);
-
-    console.log('Full API response:', response);
 
     if (response && response.data && response.data.avatar.url === newAvatarUrl) {
       // If the response contains the updated avatar, consider the update successful
