@@ -36,11 +36,11 @@ export async function loadMoreListings() {
 
 // Add scroll event listener that fetches only when the user hits the bottom
 window.addEventListener('scroll', () => {
-  const scrollTop = window.scrollY;
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const documentHeight = document.body.scrollHeight;
   const windowHeight = window.innerHeight;
-  const fullHeight = document.documentElement.scrollHeight;
 
-  if (scrollTop + windowHeight >= fullHeight) {
+  if (scrollTop + windowHeight >= documentHeight - 1) {
     const page = loadFromStorage('page');
     const newPage = +page + 1;
     saveToStorage('page', newPage);
