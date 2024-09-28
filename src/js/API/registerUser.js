@@ -33,7 +33,6 @@ export async function registerUser(name, email, password, avatar = { url: '', al
       return { success: false, message: errorMessage };
     }
 
-    console.log('Registration Successful:', result);
     return { success: true, data: result };
   } catch (error) {
     console.error('Registration error:', error);

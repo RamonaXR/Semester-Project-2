@@ -11,7 +11,7 @@
   </head>
   <body class="bg-grayLighter font-sans m-0 h-dvh flex flex-col">
     <header class="bg-primary text-white p-4 flex flex-col md:flex-row justify-between items-center">
-      <h1 class="text-xl font-bold py-4 text-black">BIDDERSHOP | Online Auction</h1>
+      <h1 class="text-xl font-bold py-4 text-black">BIDDERSHOP</h1>
       <nav aria-label="Main navigation" class="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 justify-center items-center w-full md:w-auto">
         <button id="addListingButton" class="hover:underline p-2">Add new listing</button>
         <button id="profileButton" class="hover:underline p-2">Profile</button>
@@ -20,17 +20,22 @@
       </nav>
     </header>
     <main class="p-4 md:px-16 lg:px-32 grow">
-      <section class="container bg-white p-6 mb-8 shadow-lg mx-auto">
-        <img src="#" alt="Gavel Image" class="w-full h-48 object-cover mb-4" />
-        <h2 class="text-lg font-bold mb-4 text-dark">Welcome to BidderShop</h2>
-        <p class="mb-4 text-dark">Your go-to spot for winning big on the items you crave. Join the auction, place your bids, and score great deals in no time!</p>
-        <p class="mb-4 text-red font-bold">New users get 1000 credits when registering!</p>
-        <h3 class="text-lg font-bold mb-4 text-dark">Ready to bid?</h3>
-        <p class="mb-4 text-dark">
-          By signing up, you unlock access to a world of exclusive items, hot deals, and the thrill of the auction. Whether you're here to snag a rare gem or just enjoy the excitement, becoming a member means you're always in the front row. 
-        </p>
-        <div class="flex justify-center py-2">
-          <button id="registerButton" class="bg-primary text-white px-4 py-2 rounded">Register</button>
+      <section class="bg-white p-6 mb-8 shadow-lg mx-auto">
+        <div class="container mx-auto max-w-4xl text-center">
+          <div class="mx-auto mb-4">
+            <img src="./images/hero.jpg" alt="Hero Image" class="w-full h-auto max-h-80 object-contain mb-4" />
+          </div>
+
+          <h2 class="text-3xl font-bold mb-4 text-dark">Welcome to BidderShop</h2>
+          <p class="mb-4 text-dark">Your go-to spot for winning big on the items you crave. Join the auction, place your bids, and score great deals in no time!</p>
+          <p class="mb-4 text-red font-bold">New users get 1000 credits when registering!</p>
+          <h3 class="text-lg font-bold mb-4 text-customRed">Ready to bid?</h3>
+          <p class="mb-4 text-dark">
+            By signing up, you unlock access to a world of exclusive items, hot deals, and the thrill of the auction. Whether you're here to snag a rare gem or just enjoy the excitement, becoming a member means you're always in the front row. 
+          </p>
+          <div class="flex justify-center py-2">
+            <button id="registerButton" class="bg-primary text-white px-4 py-2 rounded">Register</button>
+          </div>
         </div>
       </section>
       <h3 class="text-lg font-bold mb-4 text-dark flex justify-center">CURRENT ITEMS OPEN FOR BIDS:</h3>
@@ -39,14 +44,6 @@
         <input type="text" id="searchInput" class="border px-4 py-2 rounded-l-full w-full md:w-1/2" placeholder="Search listings..." />
         <button class="rounded-r-full bg-primary py-2 px-4 text-white">Search</button>
       </form>
-      <div class="flex justify-end w-full md:w-auto">
-        <label for="sortSelect" class="mr-2">Sort by:</label>
-        <select id="sortSelect" class="border px-4 py-2 rounded">
-          <option value="newest">Newest</option>
-          <option value="endingSoonest">Ending Soonest</option>
-          <option value="endingLatest">Ending Latest</option>
-        </select>
-      </div>
 
       <section>
         <div id="itemsGrid" class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -56,8 +53,8 @@
         </div>
       </section>
     </main>
-    <footer class="bg-dark text-white p-4 mt-8 flex flex-col items-center space-y-4 sticky bottom-0">
-      <h2 class="text-xl text-red font-bold mb-4">BIDDERSHOP</h2>
+    <footer class="bg-dark text-white p-2 mt-8 flex flex-col items-center space-y-1 sticky bottom-0">
+      <h2 class="text-xl text-customRed font-bold p-2">BIDDERSHOP</h2>
       <nav aria-label="Footer navigation" class="flex flex-col space-y-2 items-center justify-center">
         <button id="addListingFooterButton" class="block p-2">ADD LISTING</button>
       </nav>

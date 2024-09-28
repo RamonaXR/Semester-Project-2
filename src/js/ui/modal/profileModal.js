@@ -47,7 +47,6 @@ export async function profileModal() {
                 headerAvatar.src = newAvatarUrl;
               }
               avatarForm.reset();
-              // closeModal(); // Close the modal after updating avatar
             } else {
               errorMessage(document.getElementById('messageContainer'), 'Failed to update avatar.');
             }
