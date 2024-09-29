@@ -4,6 +4,16 @@ import { validationFeedback } from '../../utils/validation/validationFeedback';
 import { errorMessage } from '../messages/errorMessage';
 import { REG_EMAIL, MSG_EMAIL_INVALID, MSG_PASSWORD_INVALID } from '../../data/constants';
 
+/**
+ * Retrieves login data from the login form, validates user input, and handles the login process.
+ *
+ * @function getLoginData
+ * @description This function attaches event listeners to the login form fields to validate input in real-time and upon form submission.
+ *              It ensures that the email and password fields follow the specified validation rules, and triggers the login process via the `loginUser` function.
+ *              In case of validation errors or failed login attempts, appropriate feedback is displayed to the user.
+ *
+ * @throws Will log an error and display an error message if the login process fails due to a network issue or unexpected error.
+ */
 export function getLoginData() {
   const loginForm = document.querySelector('#loginForm');
 

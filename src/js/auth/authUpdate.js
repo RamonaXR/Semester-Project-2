@@ -1,18 +1,24 @@
 import { loadFromStorage } from '../localStorage/loadFromStorage.js';
 import { isUserLoggedIn } from '../localStorage/isUserLoggedIn.js';
 
+/**
+ * Updates the authentication state on the UI by toggling visibility and content of login, register, profile, and logout buttons.
+ *
+ * @function authUpdate
+ * @description This function checks if the user is logged in and updates the UI accordingly. If logged in, it hides the login and register buttons, shows the profile button with the user's avatar, name, and credits, and makes the logout button visible. If not logged in, it reverses these changes.
+ *
+ * @throws Will log an error if the user session is not found or the UI elements cannot be updated.
+ */
 export function authUpdate() {
   const userSession = loadFromStorage('userSession');
 
   if (isUserLoggedIn()) {
-    // Hide login and register buttons when user is logged in
     const loginButton = document.getElementById('loginButton');
     const registerButton = document.getElementById('registerButton');
 
     if (loginButton) loginButton.classList.add('hidden');
     if (registerButton) registerButton.classList.add('hidden');
 
-    // Update profile button with avatar, username, and credits
     const profileButton = document.getElementById('profileButton');
     if (profileButton) {
       profileButton.innerHTML = `
@@ -24,7 +30,6 @@ export function authUpdate() {
       profileButton.classList.remove('hidden');
     }
 
-    // Show and style the logout button
     const logoutButton = document.getElementById('logoutButton');
     if (logoutButton) {
       logoutButton.classList.remove('hidden');
@@ -40,14 +45,12 @@ export function authUpdate() {
     if (loginButton) loginButton.classList.remove('hidden');
     if (registerButton) registerButton.classList.remove('hidden');
 
-    // Hide profile button
     const profileButton = document.getElementById('profileButton');
     if (profileButton) {
       profileButton.innerHTML = '';
       profileButton.classList.add('hidden');
     }
 
-    // Hide the logout button
     const logoutButton = document.getElementById('logoutButton');
     if (logoutButton) {
       logoutButton.classList.add('hidden');

@@ -3,6 +3,19 @@ import { loadFromStorage } from '../localStorage/loadFromStorage.js';
 import { saveToStorage } from '../localStorage/saveToStorage.js';
 import { fetchData } from './fetchData.js';
 
+/**
+ * Updates the user's avatar by sending a PUT request to the API and updates the local storage with the new avatar.
+ *
+ * @async
+ * @function updateAvatar
+ * @param {string} newAvatarUrl - The URL of the new avatar to update.
+ * @returns {Promise<Object>} A promise that resolves to an object indicating the success status of the avatar update.
+ *
+ * @property {boolean} success - Indicates whether the avatar update was successful.
+ * @property {string} [message] - An error message if the avatar update fails.
+ *
+ * @throws Will log an error and return a failure message if the avatar update fails due to an API error or network issue.
+ */
 export async function updateAvatar(newAvatarUrl) {
   const profile = loadFromStorage('userSession');
   const token = loadFromStorage('accessToken');

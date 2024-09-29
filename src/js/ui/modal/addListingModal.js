@@ -4,6 +4,14 @@ import { successMessage } from '../messages/successMessage';
 import { createListing } from '../../API/createListing';
 import { validateAddListingForm } from '../../utils/validation/validateAddListingForm';
 
+/**
+ * Displays a modal for adding a new listing, allowing users to input details such as title, description, media URLs, and a deadline.
+ *
+ * @function addListingModal
+ * @description This function creates a modal for adding a new listing. It includes form inputs for the listing's title, description, multiple media URLs, a deadline date, and time. The form is validated before submission, and the listing is created via the API. Success or error messages are displayed accordingly.
+ *
+ * @throws Will display an error message if the form validation fails or if there is an error while creating the listing.
+ */
 export function addListingModal() {
   const modalContent = document.createElement('div');
   modalContent.classList.add('p-6', 'bg-white', 'rounded-lg', 'w-full', 'max-w-md');
@@ -98,7 +106,6 @@ export function addListingModal() {
 
     // Validate form
     const validation = validateAddListingForm(titleInput, deadlineInput, timeInput);
-    console.log('Validation', validation);
     if (!validation.isValid) {
       errorMessage(modalContent, validation.message);
       return;
@@ -113,11 +120,9 @@ export function addListingModal() {
       media: mediaUrls,
       endsAt: new Date(endsAt).toISOString(),
     };
-    console.log('Listing Data', listingData);
 
     try {
       const response = await createListing(listingData);
-      console.log('response', response);
       successMessage(modalContent, 'Listing created successfully!');
       setTimeout(() => {
         closeModal();

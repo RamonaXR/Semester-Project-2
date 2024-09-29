@@ -1,3 +1,13 @@
+/**
+ * Renders a list of bids and returns the container element displaying current bids.
+ *
+ * @function renderBids
+ * @param {Array<Object>} bids - An array of bid objects containing bidder information and bid amount.
+ * @returns {HTMLElement} The container element displaying the list of bids, or a message if there are no bids.
+ *
+ * @description This function creates a structured list of bids, including the bidder's avatar, name, and bid amount.
+ *              If no bids are present, it returns a message indicating no bids yet.
+ */
 export function renderBids(bids) {
   const info = document.createElement('p');
   info.classList.add('text-center', 'font-bold');

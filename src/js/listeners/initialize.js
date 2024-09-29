@@ -11,6 +11,16 @@ import { saveToStorage } from '../localStorage/saveToStorage';
 import { isUserLoggedIn } from '../localStorage/isUserLoggedIn';
 import { addListingModal } from '../ui/modal/addListingModal';
 
+/**
+ * Initializes the application by setting up the session, checking login status, and loading initial listings.
+ *
+ * @async
+ * @function initialize
+ * @description This function sets up the session, checks if the user is logged in, displays relevant buttons, and attaches event listeners for modals (profile, login, register, add listing).
+ *              It also fetches and renders the initial batch of listings, and sets up the "load more" functionality for loading additional listings.
+ *
+ * @throws Will log an error if fetching listings fails or if no listings are found.
+ */
 export async function initialize() {
   saveToStorage('scroll', false);
   setTimeout(() => sessionStorage.setItem('page', 1), 500);

@@ -7,6 +7,14 @@ import { validateField } from '../../utils/validation/validateField.js';
 import { register } from './modalContent.js';
 import { MSG_PASSWORD_INVALID, MSG_EMAIL_INVALID, REG_EMAIL } from '../../data/constants.js';
 
+/**
+ * Initializes the registration modal and handles form validation, avatar preview, and user registration.
+ *
+ * @function registerModal
+ * @description This function attaches an event listener to the register button. When clicked, it opens the registration modal and validates the form fields in real-time. It handles avatar preview functionality and submits the form to register a user. Success and error messages are displayed accordingly.
+ *
+ * @throws Will display an error message if the registration fails or if validation errors occur.
+ */
 export function registerModal() {
   const registerButton = document.getElementById('registerButton');
   const content = register();

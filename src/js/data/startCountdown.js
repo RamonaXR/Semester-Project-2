@@ -1,3 +1,12 @@
+/**
+ * Starts a countdown timer and updates the provided HTML element with the time remaining until the specified end time.
+ *
+ * @function startCountdown
+ * @param {string|Date} endTime - The end time for the countdown (in a valid Date format).
+ * @param {HTMLElement} countdownElement - The HTML element where the countdown will be displayed.
+ * @description This function calculates the remaining time until `endTime` and updates the `countdownElement` every second.
+ *              It displays "Ended" when the countdown is over and adjusts the text color based on the remaining time.
+ */
 export function startCountdown(endTime, countdownElement) {
   const endDate = new Date(endTime).getTime();
 

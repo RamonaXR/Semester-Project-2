@@ -5,6 +5,17 @@ import { authUpdate } from '../../auth/authUpdate';
 import { successMessage } from '../../ui/messages/successMessage';
 import { errorMessage } from '../../ui/messages/errorMessage';
 
+/**
+ * Handles updating the user's avatar by sending the new avatar URL to the API and updating the UI.
+ *
+ * @async
+ * @function handleAvatarChange
+ * @param {HTMLInputElement} avatarUrlInput - The input field containing the new avatar URL.
+ * @param {HTMLImageElement} avatarPreview - The image element that shows the avatar preview.
+ * @description This function updates the user's avatar by submitting the new URL to the API. Upon success, it updates the avatar in the profile preview, header, and session storage. If the update fails, an error message is displayed.
+ *
+ * @throws Will display an error message if the avatar update fails.
+ */
 export async function handleAvatarChange(avatarUrlInput, avatarPreview) {
   const newAvatarUrl = avatarUrlInput.value.trim();
   if (newAvatarUrl) {

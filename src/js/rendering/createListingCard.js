@@ -1,6 +1,16 @@
 import { startCountdown } from '../data/startCountdown';
 import placeholder from '/images/placeholder.png';
 
+/**
+ * Creates a listing card element for a given listing, including an image, title, seller information, description, and a countdown timer.
+ *
+ * @function createListingCard
+ * @param {Object} listing - The listing object containing information such as title, media, seller, description, and end time.
+ * @returns {HTMLElement} The constructed article element representing the listing card.
+ *
+ * @description This function dynamically creates and returns a styled card element with an image, title, seller info, description,
+ *              and a countdown timer. It uses a placeholder image if the listing does not have media.
+ */
 export function createListingCard(listing) {
   const listingCard = document.createElement('article');
   listingCard.classList.add('listing-card', 'bg-white', 'p-4', 'shadow-md', 'rounded', 'cursor-pointer', 'flex', 'flex-col', 'h-full');

@@ -2,6 +2,19 @@ import { fetchListings } from '../API/fetchListings';
 import { loadFromStorage } from '../localStorage/loadFromStorage';
 import { appendListings } from '../rendering/appendListings';
 
+/**
+ * Handles loading additional listings when the user scrolls to the bottom of the page.
+ *
+ * @async
+ * @function loadMoreListings
+ * @description This function fetches more listings from the API based on the current page stored in session storage.
+ *              It appends the fetched listings to the existing content and stops fetching when no more listings are available.
+ *
+ * @property {boolean} isFetching - A flag indicating whether a fetch operation is currently in progress.
+ * @property {boolean} lastPageReached - A flag indicating whether the last page of listings has been reached, preventing further requests.
+ *
+ * @throws Will stop further requests if listings have been fully loaded or if fetching is already in progress.
+ */
 let isFetching = false;
 let lastPageReached = false;
 

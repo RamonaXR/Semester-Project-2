@@ -1,5 +1,15 @@
 import { createModal, closeModal } from './createModal';
 
+/**
+ * Displays a gallery modal for navigating through an array of listing images.
+ *
+ * @function galleryModal
+ * @param {Array<Object>} listing - An array of media objects, each containing a `url` and optional `alt` text.
+ * @description This function creates a modal to display the images in a carousel format with navigation buttons (previous, next) and dot indicators.
+ *              Users can navigate through the images, and the modal closes when clicking outside of the content.
+ *
+ * @throws Will not create a modal if the media array is empty or not valid.
+ */
 export function galleryModal(listing) {
   const mediaArray = listing;
 
