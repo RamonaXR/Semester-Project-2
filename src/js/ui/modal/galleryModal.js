@@ -4,7 +4,6 @@ export function galleryModal(listing) {
   const mediaArray = listing;
 
   if (!Array.isArray(mediaArray) || mediaArray.length === 0) {
-    console.log('No media found for this listing.');
     return; // Exit if no media is available
   }
 

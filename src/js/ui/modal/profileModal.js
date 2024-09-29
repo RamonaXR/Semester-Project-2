@@ -5,10 +5,10 @@ import { errorMessage } from '../messages/errorMessage.js';
 import { successMessage } from '../messages/successMessage.js';
 import { setupAvatarChange } from '../../utils/avatar/setupAvatarChange.js';
 import { isUserLoggedIn } from '../../localStorage/isUserLoggedIn.js';
+import { getLoginData } from '../login/getLoginData.js';
 
 export async function profileModal() {
   const profileButton = document.getElementById('profileButton');
-  //const session = await loadFromStorage('userSession');
 
   if (profileButton) {
     profileButton.addEventListener('click', async () => {
@@ -16,6 +16,7 @@ export async function profileModal() {
         // Check if user is logged in
         const loginContent = login();
         createModal(loginContent); // Redirect to login modal if not logged in
+        getLoginData();
         return;
       }
 
@@ -26,7 +27,6 @@ export async function profileModal() {
       createModal(content);
 
       const avatarUrlInput = document.getElementById('avatarUrl');
-      //const avatarPreview = document.getElementById('avatarPreview');
       const avatarForm = document.getElementById('updateAvatar');
 
       // Avatar change functionality for profile modal

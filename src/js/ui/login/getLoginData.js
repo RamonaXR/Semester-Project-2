@@ -6,7 +6,6 @@ import { REG_EMAIL, MSG_EMAIL_INVALID, MSG_PASSWORD_INVALID } from '../../data/c
 
 export function getLoginData() {
   const loginForm = document.querySelector('#loginForm');
-  console.log('This is loginForm', loginForm);
 
   if (!loginForm) return;
 

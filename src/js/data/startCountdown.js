@@ -21,11 +21,11 @@ export function startCountdown(endTime, countdownElement) {
 
       // Change text color: green if more than a day remains, red if less than a day
       if (distance < 24 * 60 * 60 * 1000) {
-        countdownElement.classList.add('text-red-500');
+        countdownElement.classList.add('text-red-600');
         countdownElement.classList.remove('text-green-800');
       } else {
         countdownElement.classList.add('text-green-800');
-        countdownElement.classList.remove('text-red-500');
+        countdownElement.classList.remove('text-red-600');
       }
     }
   }

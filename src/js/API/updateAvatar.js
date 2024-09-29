@@ -6,7 +6,6 @@ import { fetchData } from './fetchData.js';
 export async function updateAvatar(newAvatarUrl) {
   const profile = loadFromStorage('userSession');
   const token = loadFromStorage('accessToken');
-  console.log('Token:', token); // Check if this is logged and valid
   if (!token) {
     return { success: false, message: 'User not logged in.' };
   }

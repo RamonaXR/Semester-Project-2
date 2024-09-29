@@ -1,4 +1,5 @@
 import { errorAPI } from '../errorhandling/errorAPI.js';
+import { errorMessage } from '../ui/messages/errorMessage.js';
 
 export async function fetchData(url, options = {}) {
   if (!url || typeof url !== 'string' || !url.trim()) {
@@ -19,6 +20,7 @@ export async function fetchData(url, options = {}) {
 
     return result;
   } catch (error) {
+    errorMessage('msgContainerParent', error.message);
     console.error('Fetch failed:', error.message);
     return { success: false, message: 'Fetch error occurred.' };
   }

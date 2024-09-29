@@ -15,9 +15,8 @@ export async function search() {
       if (!query) {
         saveToStorage('scroll', false);
         const listings = await fetchListings();
-        console.log(listings, 'search was empty');
         renderListings(listings);
-        saveToStorage('page', 1);
+        sessionStorage.setItem('page', 1);
 
         return;
       }
@@ -28,14 +27,13 @@ export async function search() {
 
       if (listings.length === 0) {
         search.value = 'Search returned no results';
-        search.classList.add('text-red-500');
+        search.classList.add('text-red-600');
         search.addEventListener('click', () => {
           search.value = '';
-          search.classList.remove('text-red-500');
+          search.classList.remove('text-red-600');
         });
       }
 
-      console.log('search', listings);
       renderListings(listings);
       saveToStorage('scroll', true);
     } catch (error) {

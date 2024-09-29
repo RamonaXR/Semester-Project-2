@@ -1,12 +1,9 @@
 import { fetchListings } from '../API/fetchListings';
 import { loadFromStorage } from '../localStorage/loadFromStorage';
-import { saveToStorage } from '../localStorage/saveToStorage';
 import { appendListings } from '../rendering/appendListings';
-//import { renderListings } from '../rendering/renderListings';
 
 let isFetching = false;
 let lastPageReached = false;
-//let lastScrollTop = 0; // Track the last scroll position
 
 // Fetch and load more listings
 export async function loadMoreListings() {
@@ -14,21 +11,14 @@ export async function loadMoreListings() {
 
   isFetching = true;
 
-  let page = +loadFromStorage('page');
+  let page = +sessionStorage.getItem('page');
 
-  console.log('Fetching page:', page);
   const newListings = await fetchListings(24, page);
 
   if (newListings.length > 0) {
     appendListings(newListings);
-    /*if (page === 2) {
-      renderListings(newListings); // Initial render for the first page
-    } else {
-      appendListings(newListings);
-    }*/
   } else {
     lastPageReached = true; // No more listings to fetch, stop further requests
-    console.log('No more listings to fetch.');
   }
 
   isFetching = false;
@@ -41,9 +31,9 @@ window.addEventListener('scroll', () => {
   const windowHeight = window.innerHeight;
 
   if (scrollTop + windowHeight >= documentHeight - 1) {
-    const page = loadFromStorage('page');
+    const page = sessionStorage.getItem('page');
     const newPage = +page + 1;
-    saveToStorage('page', newPage);
+    sessionStorage.setItem('page', newPage);
     loadMoreListings();
   }
 });

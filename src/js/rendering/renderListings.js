@@ -7,7 +7,6 @@ import { biddingFormListener } from '../listeners/biddingFormListener';
 export function renderListings(listings) {
   const listingsGrid = document.getElementById('itemsGrid');
   listingsGrid.innerHTML = '';
-  console.log('renderListings', listings);
   listings.forEach((listing) => {
     const listingCard = createListingCard(listing);
     listingsGrid.append(listingCard);

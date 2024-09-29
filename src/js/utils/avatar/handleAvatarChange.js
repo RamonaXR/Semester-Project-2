@@ -4,11 +4,9 @@ import { saveToStorage } from '../../localStorage/saveToStorage';
 import { authUpdate } from '../../auth/authUpdate';
 import { successMessage } from '../../ui/messages/successMessage';
 import { errorMessage } from '../../ui/messages/errorMessage';
-import { closeModal } from '../../ui/modal/createModal';
 
 export async function handleAvatarChange(avatarUrlInput, avatarPreview) {
   const newAvatarUrl = avatarUrlInput.value.trim();
-  console.log(newAvatarUrl);
   if (newAvatarUrl) {
     const result = await updateAvatar(newAvatarUrl);
 
@@ -27,9 +25,6 @@ export async function handleAvatarChange(avatarUrlInput, avatarPreview) {
 
       // Update the header with the new avatar
       authUpdate();
-
-      // Close the modal after a successful update
-      //closeModal();
     } else {
       errorMessage(document.getElementById('messageContainer'), 'Failed to update avatar.');
     }

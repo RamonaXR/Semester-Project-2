@@ -4,6 +4,7 @@ import { renderBids } from '../../rendering/renderBids';
 import { renderBidForm } from '../../rendering/renderBidForm';
 import { galleryModal } from './galleryModal';
 import { startCountdown } from '../../data/startCountdown';
+import { logout } from '../logout/logout';
 import placeholder from '/images/placeholder.png';
 
 export function login() {
@@ -33,7 +34,7 @@ export function login() {
 
   const emailError = document.createElement('small');
   emailError.id = 'emailError';
-  emailError.className = 'text-red-500 hidden';
+  emailError.className = 'text-red-600 hidden';
 
   // Password label and input
   const passwordLabel = document.createElement('label');
@@ -49,7 +50,7 @@ export function login() {
 
   const passwordError = document.createElement('small');
   passwordError.id = 'passwordError';
-  passwordError.className = 'text-red-500 hidden';
+  passwordError.className = 'text-red-600 hidden';
 
   // Message container
   const messageContainer = document.createElement('div');
@@ -133,9 +134,13 @@ export async function profile() {
   buttonDiv.className = 'flex justify-center';
 
   const logoutButton = document.createElement('button');
-  logoutButton.id = 'logoutButton';
+  logoutButton.id = 'logoutButton2';
   logoutButton.className = 'bg-primary text-white px-4 py-2 rounded';
   logoutButton.textContent = 'Log Out';
+
+  logoutButton.addEventListener('click', () => {
+    logout();
+  });
 
   buttonDiv.append(logoutButton);
 
@@ -204,7 +209,7 @@ export function register() {
 
   const usernameError = document.createElement('small');
   usernameError.id = 'usernameError';
-  usernameError.className = 'text-red-500 hidden';
+  usernameError.className = 'text-red-600 hidden';
 
   // Email
   const emailLabel = document.createElement('label');
@@ -221,7 +226,7 @@ export function register() {
 
   const emailError = document.createElement('small');
   emailError.id = 'emailError';
-  emailError.className = 'text-red-950 hidden';
+  emailError.className = 'text-red-600 hidden';
 
   // Password
   const passwordLabel = document.createElement('label');
@@ -238,7 +243,7 @@ export function register() {
 
   const passwordError = document.createElement('small');
   passwordError.id = 'passwordError';
-  passwordError.className = 'text-red-500 hidden';
+  passwordError.className = 'text-red-600 hidden';
 
   // Message container
   const messageContainer = document.createElement('div');
@@ -265,8 +270,6 @@ export function register() {
 }
 
 export function listingModalContent(listing) {
-  console.log('Rendering listing:', listing); // Log the listing data
-
   const userLoggedIn = isUserLoggedIn();
   const hasEnded = new Date(listing.endsAt) < new Date(); // Check if the listing has ended
 

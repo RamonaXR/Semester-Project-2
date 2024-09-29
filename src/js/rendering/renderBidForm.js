@@ -23,7 +23,7 @@ export function renderBidForm() {
   // Error message (hidden by default)
   const errorMessage = document.createElement('small');
   errorMessage.id = 'bidAmountError';
-  errorMessage.className = 'text-red-500 hidden p-2';
+  errorMessage.className = 'text-red-600 hidden p-2';
   form.appendChild(errorMessage);
 
   // Submit button
@@ -35,14 +35,3 @@ export function renderBidForm() {
 
   return form;
 }
-
-/*export function renderBidForm(listingId) {
-  return `
-    <form id="bidForm" class="flex flex-col items-center mt-4">
-      <label for="bidAmount" class="block text-center">Amount:</label>
-      <input type="number" id="bidAmount" class="border p-2 mb-4 w-1/2 text-center" min="10" value="100" required />
-      <small id="bidAmountError" class="text-red-500 hidden"></small>
-      <button type="submit" class="bg-primary text-white px-4 py-2 rounded">Bid</button>
-    </form>
-  `;
-}*/

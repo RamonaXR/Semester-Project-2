@@ -4,7 +4,6 @@ import { loadFromStorage } from '../localStorage/loadFromStorage';
 
 export async function createBids(listingId, postData) {
   const token = loadFromStorage('accessToken');
-  console.log('Access Token:', token);
 
   if (!token) {
     console.error('Access token is missing.');
@@ -24,13 +23,7 @@ export async function createBids(listingId, postData) {
   };
 
   try {
-    console.log('Submitting bid data:', postData);
-    console.log('URL:', url);
-    console.log('Options:', options);
-
     const response = await fetchData(url, options);
-
-    console.log('API Response:', response);
 
     if (response.data) {
       return { success: true, data: response.data };

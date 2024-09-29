@@ -11,8 +11,6 @@ export async function registerUser(name, email, password, avatar = { url: '', al
   };
 
   try {
-    console.log('Register Payload:', payload);
-
     const response = await fetch(url, {
       method: 'POST',
       headers: {

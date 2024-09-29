@@ -29,9 +29,11 @@ export async function loginUser(email, password) {
       saveToStorage('userSession', profile);
 
       await getProfile();
-      authUpdate();
+
       setTimeout(() => {
+        authUpdate();
         closeModal();
+        window.location.reload();
       }, 300);
       return { success: true };
     } else if (response.status === 401) {
