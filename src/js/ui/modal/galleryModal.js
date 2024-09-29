@@ -1,10 +1,19 @@
 import { createModal, closeModal } from './createModal';
 
+/**
+ * Displays a gallery modal for navigating through an array of listing images.
+ *
+ * @function galleryModal
+ * @param {Array<Object>} listing - An array of media objects, each containing a `url` and optional `alt` text.
+ * @description This function creates a modal to display the images in a carousel format with navigation buttons (previous, next) and dot indicators.
+ *              Users can navigate through the images, and the modal closes when clicking outside of the content.
+ *
+ * @throws Will not create a modal if the media array is empty or not valid.
+ */
 export function galleryModal(listing) {
   const mediaArray = listing;
 
   if (!Array.isArray(mediaArray) || mediaArray.length === 0) {
-    console.log('No media found for this listing.');
     return; // Exit if no media is available
   }
 
@@ -19,7 +28,7 @@ export function galleryModal(listing) {
     const imageElement = document.createElement('img');
     imageElement.src = img.url;
     imageElement.alt = img.alt || 'Listing image';
-    imageElement.className = `w-full h-80 object-cover mb-2 rounded ${index === 0 ? '' : 'hidden'}`;
+    imageElement.className = `w-full h-80 object-cover mb-2 cursor-pointer rounded ${index === 0 ? '' : 'hidden'}`;
     imageElement.id = `galleryImage${index}`;
     galleryCarousel.appendChild(imageElement);
   });

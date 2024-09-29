@@ -8,6 +8,16 @@ import { listingModalContent } from '../ui/modal/modalContent';
 import { authUpdate } from '../auth/authUpdate';
 import { getProfile } from '../API/getProfile';
 
+/**
+ * Attaches a submit event listener to the bid form to handle bidding functionality for a specific listing.
+ *
+ * @function biddingFormListener
+ * @param {string} listingId - The ID of the listing for which the bid is being placed.
+ * @description This function adds a listener to the bid form that validates the bid amount and submits the bid via the API.
+ *              It handles success and error cases, updates the listing modal, and fetches the updated user profile for credit adjustments.
+ *
+ * @throws Will log an error if the bid submission or subsequent API requests fail.
+ */
 export function biddingFormListener(listingId) {
   const bidForm = document.getElementById('bidForm');
   const bidAmountError = document.getElementById('bidAmountError');
@@ -51,7 +61,7 @@ export function biddingFormListener(listingId) {
 
         authUpdate(); // Re-render the profile section, including credits
       } else {
-        errorMessage(bidAmountError, 'An error occurred while placing the bid.');
+        errorMessage(bidAmountError, 'Something went wrong, please ensure your bid is higher than current bids, or try again');
       }
     } catch (error) {
       console.error(error);

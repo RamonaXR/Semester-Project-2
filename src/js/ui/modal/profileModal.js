@@ -5,10 +5,19 @@ import { errorMessage } from '../messages/errorMessage.js';
 import { successMessage } from '../messages/successMessage.js';
 import { setupAvatarChange } from '../../utils/avatar/setupAvatarChange.js';
 import { isUserLoggedIn } from '../../localStorage/isUserLoggedIn.js';
+import { getLoginData } from '../login/getLoginData.js';
 
+/**
+ * Initializes the profile modal, handling both logged-in and not-logged-in states.
+ *
+ * @async
+ * @function profileModal
+ * @description This function attaches an event listener to the profile button. If the user is not logged in, it opens the login modal. If the user is logged in, it opens the profile modal, allowing the user to update their avatar. The avatar change functionality is handled through a form submission, and feedback is provided for both success and failure.
+ *
+ * @throws Will display an error message if the avatar update fails or if there is an issue opening the modals.
+ */
 export async function profileModal() {
   const profileButton = document.getElementById('profileButton');
-  //const session = await loadFromStorage('userSession');
 
   if (profileButton) {
     profileButton.addEventListener('click', async () => {
@@ -16,6 +25,7 @@ export async function profileModal() {
         // Check if user is logged in
         const loginContent = login();
         createModal(loginContent); // Redirect to login modal if not logged in
+        getLoginData();
         return;
       }
 
@@ -26,7 +36,6 @@ export async function profileModal() {
       createModal(content);
 
       const avatarUrlInput = document.getElementById('avatarUrl');
-      //const avatarPreview = document.getElementById('avatarPreview');
       const avatarForm = document.getElementById('updateAvatar');
 
       // Avatar change functionality for profile modal

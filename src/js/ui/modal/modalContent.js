@@ -4,8 +4,17 @@ import { renderBids } from '../../rendering/renderBids';
 import { renderBidForm } from '../../rendering/renderBidForm';
 import { galleryModal } from './galleryModal';
 import { startCountdown } from '../../data/startCountdown';
+import { logout } from '../logout/logout';
 import placeholder from '/images/placeholder.png';
 
+/**
+ * Creates and returns the content for the login form modal.
+ *
+ * @function login
+ * @returns {HTMLElement} The section element containing the login form.
+ * @description This function builds a form for logging in, including fields for email and password, validation error messages,
+ *              and a submit button. It returns the form wrapped inside a section element.
+ */
 export function login() {
   const section = document.createElement('section');
 
@@ -33,7 +42,7 @@ export function login() {
 
   const emailError = document.createElement('small');
   emailError.id = 'emailError';
-  emailError.className = 'text-red-500 hidden';
+  emailError.className = 'text-red-600 hidden';
 
   // Password label and input
   const passwordLabel = document.createElement('label');
@@ -49,7 +58,7 @@ export function login() {
 
   const passwordError = document.createElement('small');
   passwordError.id = 'passwordError';
-  passwordError.className = 'text-red-500 hidden';
+  passwordError.className = 'text-red-600 hidden';
 
   // Message container
   const messageContainer = document.createElement('div');
@@ -76,6 +85,15 @@ export function login() {
   return section;
 }
 
+/**
+ * Creates and returns the content for the profile modal, including user details and an avatar update form.
+ *
+ * @async
+ * @function profile
+ * @returns {Promise<HTMLElement>} A promise that resolves to the section element containing the profile modal content.
+ * @description This function generates the user's profile section, displaying their avatar, name, credits, and a form to update the avatar.
+ *              It also includes a logout button.
+ */
 export async function profile() {
   const session = await loadFromStorage('userSession');
   const defaultAvatarUrl = 'https://i.pravatar.cc/200';
@@ -133,9 +151,13 @@ export async function profile() {
   buttonDiv.className = 'flex justify-center';
 
   const logoutButton = document.createElement('button');
-  logoutButton.id = 'logoutButton';
+  logoutButton.id = 'logoutButton2';
   logoutButton.className = 'bg-primary text-white px-4 py-2 rounded';
   logoutButton.textContent = 'Log Out';
+
+  logoutButton.addEventListener('click', () => {
+    logout();
+  });
 
   buttonDiv.append(logoutButton);
 
@@ -146,6 +168,14 @@ export async function profile() {
   return section;
 }
 
+/**
+ * Creates and returns the content for the registration form modal.
+ *
+ * @function register
+ * @returns {HTMLElement} The section element containing the registration form.
+ * @description This function builds a form for registering a new user, including fields for username, email, password, avatar,
+ *              and validation error messages, with a submit button.
+ */
 export function register() {
   const defaultAvatarUrl = 'https://i.pravatar.cc/200';
 
@@ -204,7 +234,7 @@ export function register() {
 
   const usernameError = document.createElement('small');
   usernameError.id = 'usernameError';
-  usernameError.className = 'text-red-500 hidden';
+  usernameError.className = 'text-red-600 hidden';
 
   // Email
   const emailLabel = document.createElement('label');
@@ -221,7 +251,7 @@ export function register() {
 
   const emailError = document.createElement('small');
   emailError.id = 'emailError';
-  emailError.className = 'text-red-950 hidden';
+  emailError.className = 'text-red-600 hidden';
 
   // Password
   const passwordLabel = document.createElement('label');
@@ -238,7 +268,7 @@ export function register() {
 
   const passwordError = document.createElement('small');
   passwordError.id = 'passwordError';
-  passwordError.className = 'text-red-500 hidden';
+  passwordError.className = 'text-red-600 hidden';
 
   // Message container
   const messageContainer = document.createElement('div');
@@ -264,9 +294,17 @@ export function register() {
   return section;
 }
 
+/**
+ * Creates and returns the content for the listing modal, displaying listing details and enabling bidding if applicable.
+ *
+ * @function listingModalContent
+ * @param {Object} listing - The listing object containing details such as title, description, seller information, media, and bids.
+ * @returns {HTMLElement} The element containing the listing modal content.
+ * @description This function generates a modal displaying the details of a listing, including title, description, seller info, media, and bids.
+ *              If the user is logged in and the listing hasn't ended, it includes the bid form. If the listing has ended, it shows an appropriate message.
+ *              Users can also open a gallery modal by clicking on the listing's media.
+ */
 export function listingModalContent(listing) {
-  console.log('Rendering listing:', listing); // Log the listing data
-
   const userLoggedIn = isUserLoggedIn();
   const hasEnded = new Date(listing.endsAt) < new Date(); // Check if the listing has ended
 

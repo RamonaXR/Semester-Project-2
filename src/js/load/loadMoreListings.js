@@ -1,12 +1,22 @@
 import { fetchListings } from '../API/fetchListings';
 import { loadFromStorage } from '../localStorage/loadFromStorage';
-import { saveToStorage } from '../localStorage/saveToStorage';
 import { appendListings } from '../rendering/appendListings';
-//import { renderListings } from '../rendering/renderListings';
 
+/**
+ * Handles loading additional listings when the user scrolls to the bottom of the page.
+ *
+ * @async
+ * @function loadMoreListings
+ * @description This function fetches more listings from the API based on the current page stored in session storage.
+ *              It appends the fetched listings to the existing content and stops fetching when no more listings are available.
+ *
+ * @property {boolean} isFetching - A flag indicating whether a fetch operation is currently in progress.
+ * @property {boolean} lastPageReached - A flag indicating whether the last page of listings has been reached, preventing further requests.
+ *
+ * @throws Will stop further requests if listings have been fully loaded or if fetching is already in progress.
+ */
 let isFetching = false;
 let lastPageReached = false;
-//let lastScrollTop = 0; // Track the last scroll position
 
 // Fetch and load more listings
 export async function loadMoreListings() {
@@ -14,21 +24,14 @@ export async function loadMoreListings() {
 
   isFetching = true;
 
-  let page = +loadFromStorage('page');
+  let page = +sessionStorage.getItem('page');
 
-  console.log('Fetching page:', page);
   const newListings = await fetchListings(24, page);
 
   if (newListings.length > 0) {
     appendListings(newListings);
-    /*if (page === 2) {
-      renderListings(newListings); // Initial render for the first page
-    } else {
-      appendListings(newListings);
-    }*/
   } else {
     lastPageReached = true; // No more listings to fetch, stop further requests
-    console.log('No more listings to fetch.');
   }
 
   isFetching = false;
@@ -36,15 +39,14 @@ export async function loadMoreListings() {
 
 // Add scroll event listener that fetches only when the user hits the bottom
 window.addEventListener('scroll', () => {
-  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollTop = Math.max(window.scrollY, document.documentElement.scrollTop, document.body.scrollTop);
+  const documentHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
   const windowHeight = window.innerHeight;
-  const fullHeight = document.documentElement.scrollHeight;
 
-  // Check if the user is exactly at the bottom of the page
-  if (scrollTop + windowHeight >= fullHeight) {
-    const page = loadFromStorage('page');
+  if (scrollTop + windowHeight >= documentHeight - 1) {
+    const page = sessionStorage.getItem('page');
     const newPage = +page + 1;
-    saveToStorage('page', newPage);
+    sessionStorage.setItem('page', newPage);
     loadMoreListings();
   }
 });

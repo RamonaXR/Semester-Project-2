@@ -1,3 +1,12 @@
+/**
+ * Starts a countdown timer and updates the provided HTML element with the time remaining until the specified end time.
+ *
+ * @function startCountdown
+ * @param {string|Date} endTime - The end time for the countdown (in a valid Date format).
+ * @param {HTMLElement} countdownElement - The HTML element where the countdown will be displayed.
+ * @description This function calculates the remaining time until `endTime` and updates the `countdownElement` every second.
+ *              It displays "Ended" when the countdown is over and adjusts the text color based on the remaining time.
+ */
 export function startCountdown(endTime, countdownElement) {
   const endDate = new Date(endTime).getTime();
 
@@ -8,7 +17,7 @@ export function startCountdown(endTime, countdownElement) {
     if (distance < 0) {
       // Display "Ended" if the time has passed
       countdownElement.textContent = 'Ended';
-      countdownElement.classList.add('text-red-500');
+      countdownElement.classList.add('text-red-600');
       countdownElement.classList.remove('text-green-800');
     } else {
       // Calculate time left
@@ -21,11 +30,11 @@ export function startCountdown(endTime, countdownElement) {
 
       // Change text color: green if more than a day remains, red if less than a day
       if (distance < 24 * 60 * 60 * 1000) {
-        countdownElement.classList.add('text-red-500');
+        countdownElement.classList.add('text-red-600');
         countdownElement.classList.remove('text-green-800');
       } else {
         countdownElement.classList.add('text-green-800');
-        countdownElement.classList.remove('text-red-500');
+        countdownElement.classList.remove('text-red-600');
       }
     }
   }
