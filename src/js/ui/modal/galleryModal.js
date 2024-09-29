@@ -18,7 +18,7 @@ export function galleryModal(listing) {
     const imageElement = document.createElement('img');
     imageElement.src = img.url;
     imageElement.alt = img.alt || 'Listing image';
-    imageElement.className = `w-full h-80 object-cover mb-2 rounded ${index === 0 ? '' : 'hidden'}`;
+    imageElement.className = `w-full h-80 object-cover mb-2 cursor-pointer rounded ${index === 0 ? '' : 'hidden'}`;
     imageElement.id = `galleryImage${index}`;
     galleryCarousel.appendChild(imageElement);
   });

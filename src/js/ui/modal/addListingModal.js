@@ -33,10 +33,13 @@ export function addListingModal() {
   mediaInput.placeholder = 'Add image URL';
   mediaInput.classList.add('border', 'w-full', 'p-2', 'mb-2');
 
+  const mediaButtonWrap = document.createElement('div');
+  mediaButtonWrap.classList.add('flex', 'justify-center');
   const addMediaButton = document.createElement('button');
   addMediaButton.setAttribute('type', 'button');
   addMediaButton.textContent = 'Add Media';
   addMediaButton.classList.add('bg-primary', 'text-white', 'px-4', 'py-2', 'rounded', 'mb-2');
+  mediaButtonWrap.append(addMediaButton);
 
   const mediaList = document.createElement('ul');
   mediaList.classList.add('mb-4');
@@ -58,7 +61,7 @@ export function addListingModal() {
   });
 
   mediaContainer.appendChild(mediaInput);
-  mediaContainer.appendChild(addMediaButton);
+  mediaContainer.appendChild(mediaButtonWrap);
   mediaContainer.appendChild(mediaList);
 
   // Deadline input (block past dates)
@@ -79,13 +82,16 @@ export function addListingModal() {
   timeInput.required = true;
 
   // Submit button
+  const submitButtonWrap = document.createElement('div');
+  submitButtonWrap.classList.add('flex', 'justify-center');
   const submitButton = document.createElement('button');
   submitButton.type = 'submit';
   submitButton.classList.add('bg-primary', 'text-white', 'px-4', 'py-2', 'rounded');
   submitButton.textContent = 'Create Listing';
+  submitButtonWrap.append(submitButton);
 
   const form = document.createElement('form');
-  form.append(titleInput, descriptionInput, mediaContainer, deadlineInput, timeInput, submitButton);
+  form.append(titleInput, descriptionInput, mediaContainer, deadlineInput, timeInput, submitButtonWrap);
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();

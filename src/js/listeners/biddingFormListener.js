@@ -51,7 +51,7 @@ export function biddingFormListener(listingId) {
 
         authUpdate(); // Re-render the profile section, including credits
       } else {
-        errorMessage(bidAmountError, 'An error occurred while placing the bid.');
+        errorMessage(bidAmountError, 'Something went wrong, please ensure your bid is higher than current bids, or try again');
       }
     } catch (error) {
       console.error(error);
