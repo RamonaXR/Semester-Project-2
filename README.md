@@ -1,50 +1,50 @@
-# Biddershop 
+# Biddershop
 
+![Biddershop running image](./images/projectImage.png)
 
-![image](./images/projectImage.png)
+Biddershop is an online auction marketplace that allows users to browse, bid, and sell items via a simple, user-friendly interface. Registered users begin with 1000 credits to start bidding.
 
-This is my Semester Project 2 submission, an online auction marketplace called **Biddershop**. It allows users to browse, bid, and sell things while maintaining a simple, user-friendly interface. Upon registering, users are given 1000 credits to start bidding on the platform.
+## Table of Contents
 
-## Features:
+- [Features](#features)
+- [Project Planning](#project-planning)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Reflections](#reflections)
+- [Installation](#installation)
+- [Running](#running)
+- [Testing](#testing)
+- [LinkedIn](#linkedin)
 
-- Unregistered users can search and view all listings.
-- Registered users can log in or log out, and update their profile avatar.
-- Registered users can create a listing with title, deadline, gallery, and description.
-- Users can bid on listings created by others.
-- All users can view the bids made on any active listing.
-- Listings with expired deadlines are automatically marked as "ended."
+## Features
 
+- **Browsing:** Unregistered users can search and view all listings.
+- **User Accounts:** Registered users can log in/out and update their profile avatar.
+- **Listing Creation:** Registered users can create listings with title, deadline, gallery, and description.
+- **Bidding:** Users can bid on listings created by others.
+- **Bid Visibility:** All users can view bids on active listings.
+- **Auto-Ending:** Listings are automatically marked as "ended" when deadlines expire.
 
+## Project Planning
 
-## Project Planning:
+- **Task Management:** Utilized Trello for tracking tasks and progress.
+- **Timeline:** Managed with a Notion Gantt chart to keep the project on track.
 
-- I used Trello to track tasks and progress.
-- A Notion Gantt chart was used to manage the timeline and ensure the project stayed on track.
+## Design
 
-## Design:
+- **Prototyping:** All design prototypes were created in Figma.
+- **Focus:** The design emphasizes ease of use and clear navigation.
 
-- Design and prototypes were created in Figma.
-- The design focuses on ease of use and clear navigation.
+## Tech Stack
 
-## Reflections:
+- **Bundler:** Vite
+- **Styling:** TailwindCSS, PostCSS
+- **Code Formatting & Linting:** Prettier, ESLint
+- **Testing:** Jest (unit testing) and Cypress (end-to-end testing)
 
-During development, I faced challenges, particularly with implementing infinite scrolling to load more listings as users scroll. This required multiple fixes, and I learned valuable lessons about structuring infinite scroll implementations for future projects. 
+## Reflections
 
-I’m happy with the outcome of **Biddershop** and am fully aware of areas for improvement, such as setting up a more structured error system next time. I appreciate the learning experience and am excited to apply this knowledge to future projects.
-
-## Environment Setup:
-
-This project was built with the following:
-
-- Vite (bundler)
-- TailwindCSS
-- PostCSS
-- Prettier (for code formatting)
-- Eslint (for linting)
-- Jest (unit testing)
-- Cypress (end-to-end testing)
-
-## Getting Started:
+Developing Biddershop presented several challenges, particularly with implementing infinite scrolling for listings. These challenges provided valuable insights on handling dynamic content loading and error management, lessons I plan to apply to future projects.
 
 ### Installation:
 
@@ -68,16 +68,16 @@ To run the app, run the following commands:
 npm run dev
 ```
 
-## Testing 
+## Testing
 
-- Repository has been configured with cypress and jest, and is ready for future testers. 
+- Repository has been configured with cypress and jest, and is ready for future testers.
 - To run test, run:
 
 ```
 npm run test
 ```
 
-## Linkedin 
+## Linkedin
 
 - Ramona Jensen
   [My LinkedIn page](www.linkedin.com/in/ramona-jensen-9994362b8)
